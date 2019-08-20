@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import FriendLogin from './components/FriendLogin'
-import FriendList from './friend/FriendList'
+import FriendList from './friendData/FriendListList'
 
 import './App.css'
 
