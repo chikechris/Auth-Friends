@@ -5,7 +5,7 @@ import { axiosWithAuth } from '../utility/axiosWithAuth'
 
 
 
-const FriendLogin = () => {
+const FriendLogin = (props) => {
   const [isLoading, setIsLoading] = useState();
 
   return (
