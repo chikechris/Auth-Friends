@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utility/axiosWithAuth";
-
+import Friend from "../components/Friend";
+import FriendForm from "../components/FriendForm";
 
 const FriendList = () => {
   const [friends, setFriends] = useState([]);
-  
+  const [editMode, setEditMode] = useState();
+  const [friendToEdit, setFriendToEdit] = useState();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     axiosWithAuth
@@ -20,8 +23,20 @@ const FriendList = () => {
   }, []);
   return (
     <div>
-      
-      <h2>Friend List</h2>
+      {friends.map(friend => (
+        <Friend
+          friend={friend}
+          key={friend.id}
+          setEditMode={setEditMode}
+          setFriendToEdit={setFriendToEdit}
+        />
+      ))}
+      <FriendForm
+        friends={friends}
+        addFriend={setFriends}
+        editMode={editMode}
+        friendToEdit={friendToEdit}
+      />
     </div>
   );
 };

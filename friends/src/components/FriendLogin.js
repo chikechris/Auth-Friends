@@ -1,45 +1,91 @@
-
-import React, { useState } from "react";
+import React from 'react'
 import { withFormik, Form, Field } from 'formik'
 import { axiosWithAuth } from '../utility/axiosWithAuth'
+import styled from 'styled-components'
 
+const FormStyle = styled.div`
+  body {
+    width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    transform: translateY(-20%);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  form {
+    display: flex;
+    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 5px;
+  }
+  input {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 4%;
+    font-family: 'Serif ', 'Georgia ';
+    margin: 5px 0;
+    background: transparent;
+    border: 0px;
+    border-bottom: 2px solid #282c34;
+    padding: 10px;
+    color: 'white';
+    width: 80%;
+  }
+  button {
+    background: #282c34;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+`
 
-
-const FriendLogin = (props) => {
-  const [isLoading, setIsLoading] = useState();
-
+const Login = ({ isSubmitting }) => {
   return (
-    <div>
+    <FormStyle>
       <Form>
-        <legend>Log In Here</legend>
         <label>Username</label>
-        <Field name="username" type="text" placeholder="Username" />
-        <label>Email</label>
-        <Field name='email' type='email' placeholder='Email' />
+        <Field name='username' type='text' placeholder='Username' />
         <label>Password</label>
         <Field name='password' type='password' placeholder='Password' />
+
         <button>Login</button>
       </Form>
-    </div>
+    </FormStyle>
   )
 }
 
 export default withFormik({
-  mapPropsToValues ({ username,email, password }) {
+  mapPropsToValues ({ username, password }) {
     return {
-      username: username || "christian",
-      email: email || '',
+      username: username || '',
       password: password || ''
     }
   },
-  handleSubmit (values) {
-    console.log(values)
+  handleSubmit (values, formikBag) {
     axiosWithAuth
       .post('/login', values)
-      .then(res => console.log(res))
       .then(res => {
         localStorage.setItem('token', res.data.payload)
+        formikBag.props.history.push('/friends')
       })
-      .catch(err => console.log(err.response))
+      .catch(err => {
+        console.log(err)
+      })
   }
-})(FriendLogin)
+})(Login)
