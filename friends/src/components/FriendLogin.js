@@ -1,8 +1,13 @@
-import React from 'react'
+
+import React, { useState } from "react";
 import { withFormik, Form, Field } from 'formik'
 import { axiosWithAuth } from '../utility/axiosWithAuth'
 
+
+
 const FriendLogin = () => {
+  const [isLoading, setIsLoading] = useState();
+
   return (
     <div>
       <Form>

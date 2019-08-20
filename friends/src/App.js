@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import FriendLogin from './components/FriendLogin'
+import FriendList from './friend/FriendList'
 
 import './App.css'
 
@@ -11,7 +12,8 @@ function App () {
         <h2>Friends Authentication App</h2>
       </header>
 
-      <Route path="/" component={FriendLogin} />
+      <Route path='/' component={FriendLogin} />
+      <Route path='/friends-list' component={FriendList} />
     </div>
   )
 }
